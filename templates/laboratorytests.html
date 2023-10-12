@@ -1,0 +1,35 @@
+{% extends "base.html" %} 
+
+        {% block content %}
+            <div class="table">
+                <h2 class="text-xl mb-2">Laboratory Tests Table</h2>
+                <table class="table-auto">
+                    <thead>
+                        <tr>
+                            <th class="px-4 py-2">Test ID</th>
+                            <th class="px-4 py-2">Patient ID</th>
+                            <th class="px-4 py-2">Doctor ID</th>
+                            <th class="px-4 py-2">Test Name</th>
+                            <th class="px-4 py-2">Test Date</th>
+                            <th class="px-4 py-2">Test Results</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for laboratorytests in data3 %}
+                        <tr>
+                            <td class="border px-4 py-2">{{ laboratorytests.test_id }}</td>
+                            <td class="border px-4 py-2">{{ laboratorytests.patient_id }}</td>
+                            <td class="border px-4 py-2">{{ laboratorytests.doctor_id }}</td>
+                            <td class="border px-4 py-2">{{ laboratorytests.test_name }}</td>
+                            <td class="border px-4 py-2">{{ laboratorytests.test_date }}</td>
+                            <td class="border px-4 py-2">{{ laboratorytests.test_results }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <br/>
+
+        {% endblock %}
