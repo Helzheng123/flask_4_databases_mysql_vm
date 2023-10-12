@@ -49,7 +49,8 @@ CREATE TABLE laboratorytests (
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
 );
 ```
-These tables were created from my [previous repository](https://github.com/Helzheng123/mysql_cloudmanaged_databases).  
+These tables were created from my [previous repository](https://github.com/Helzheng123/mysql_cloudmanaged_databases). The **Doctors** table includes a Doctor ID, Doctor Name (first and last name), and the specialty they are in. The **patients** table includes a Patient ID, First Name, Last Name, Date of Birth, and the Primary Doctor ID. Lastly, the **laboratorytests** table includes a Test ID, Patient ID, Doctor ID, Test Name, Test Date, and Test Results.
+
  - To insert fake data, type in the [following](https://github.com/Helzheng123/flask_4_databases_mysql_vm/blob/main/MYSQL/populate.sql):
 ```
 INSERT INTO doctors (doctor_name, specialty) VALUES 
@@ -67,9 +68,26 @@ INSERT INTO laboratorytests (patient_id, doctor_id, test_name, test_date, test_r
 (2, 2, 'Skin Biopsy', '2023-10-11', 'No abnormalities detected'),
 (3, 3, 'X-ray', '2023-10-09', 'No abnormalities detected');
 ```
- - Go to **Database**--> **Reverse Engineer** to create the ERD diagram.
+ - Go to **Database**--> **Reverse Engineer** to create the ERD diagram. From the diagram, the doctors' table has a one-to-many relationship with patients and laboratory tests.
 ![image](https://github.com/Helzheng123/flask_4_databases_mysql_vm/assets/123939070/dddfcd88-f1b0-4719-b195-756339d405b4)
 
 #### 3. Integrate with Flask:
- - I used my previous flask deployment templates as an example html file. 
+ - I used my [previous flask deployment](https://github.com/Helzheng123/azure_flask_deployment) templates as an example HTML file. I changed some HTML files to doctors.html, patients.html, and laboratorytests.html and kept the base.html file.
+ - Check the [Screenshots](https://github.com/Helzheng123/flask_4_databases_mysql_vm/tree/main/Screenshots) folder to see the screenshots of the deployment of the application.
+ - I set up an ```.env``` file and a ```.gitignore``` file where in the ```.env``` file, I included:
+```
+DB_HOST=the IP address of your virtual machine
+DB_DATABASE=name of database
+DB_USERNAME=user you set
+DB_PASSWORD=password you set
 
+```
+- In the ```.gitignore``` file, i put in ```.env```
+- After that, I changed around my ```app.py``` file to match the HTML files and made sure the SQL queries will be retrieved from the connection with the database. 
+   
+#### 4. Documentation of Code Errors: 
+One error I encountered when deploying my application was a spelling issue. I did not include a 's' after 'doctor' in the HTML file, therefore, I ran into an error message (this portion I didn't get to screenshot).
+
+Another error I encountered was not importing 'text' from SQLAlchemy even though I put text in front of each query in [app.py](https://github.com/Helzheng123/flask_4_databases_mysql_vm/blob/main/app.py). So I ran into this error message: ![image](https://github.com/Helzheng123/flask_4_databases_mysql_vm/assets/123939070/3f3c80d0-441d-4d86-bd26-0bb43e348121)
+
+Everything else went smoothly :smile:.
