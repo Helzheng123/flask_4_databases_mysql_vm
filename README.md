@@ -15,3 +15,61 @@
  - Go back to Google Shell and in the terminal type in ```\quit``` to get out of the mysql connection. Then type in ```sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf``` to enter the nano terminal. Find **bind address** and change it to ```0.0.0.0```. Then Ctrl + O to save, enter, and Ctrl + X to exit.
  - Type in ```/etc/init.d/mysql restart```. Then type in your password for your virtual machine.
  - Open your MySQL Workbench and create a new connection. Input a new connection name and use your virtual machine's **IP address as the Hostname** and **change the user name to the <user> you input before**. Enter your **password from <password> as well**. Test the connection and if successful, click **Ok**. 
+
+#### 2. Creating a Database with Tables:
+ - In MySQL Workbench, type in the [following](https://github.com/Helzheng123/flask_4_databases_mysql_vm/blob/main/MYSQL/hospital.sql):
+```
+CREATE DATABASE hospital;
+
+USE hospital;
+
+CREATE TABLE doctors (
+    doctor_id INT PRIMARY KEY AUTO_INCREMENT,
+    doctor_name VARCHAR(50) NOT NULL,
+    specialty VARCHAR(50) DEFAULT 'General Practice'
+);
+
+CREATE TABLE patients (
+    patient_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE,
+    primary_doctor_id INT,
+    FOREIGN KEY (primary_doctor_id) REFERENCES doctors(doctor_id)
+);
+
+CREATE TABLE laboratorytests (
+    test_id INT PRIMARY KEY AUTO_INCREMENT,
+    patient_id INT,
+    doctor_id INT,
+    test_name VARCHAR(50),
+    test_date DATE,
+    test_results TEXT,
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
+```
+These tables were created from my [previous repository](https://github.com/Helzheng123/mysql_cloudmanaged_databases).  
+ - To insert fake data, type in the [following](https://github.com/Helzheng123/flask_4_databases_mysql_vm/blob/main/MYSQL/populate.sql):
+```
+INSERT INTO doctors (doctor_name, specialty) VALUES 
+('Dr. Olivia Mitchell', 'Cardiology'),
+('Dr. Will Davis', 'Dermatology'),
+('Dr. Michael Anderson', 'Orthopedics');
+
+INSERT INTO patients (first_name, last_name, date_of_birth, primary_doctor_id) VALUES
+('John', 'Doe', '1990-05-15', 1), 
+('Jane', 'Hill', '1985-11-22', 2), 
+('Michael', 'White', '1978-03-08', 3); 
+
+INSERT INTO laboratorytests (patient_id, doctor_id, test_name, test_date, test_results) VALUES
+(1, 1, 'Blood Test', '2023-10-doctorsdoctors10', 'Normal results'),
+(2, 2, 'Skin Biopsy', '2023-10-11', 'No abnormalities detected'),
+(3, 3, 'X-ray', '2023-10-09', 'No abnormalities detected');
+```
+ - Go to **Database**--> **Reverse Engineer** to create the ERD diagram.
+![image](https://github.com/Helzheng123/flask_4_databases_mysql_vm/assets/123939070/dddfcd88-f1b0-4719-b195-756339d405b4)
+
+#### 3. Integrate with Flask:
+ - I used my previous flask deployment templates as an example html file. 
+
