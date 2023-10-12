@@ -49,7 +49,7 @@ CREATE TABLE laboratorytests (
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
 );
 ```
-These tables were created from my [previous repository](https://github.com/Helzheng123/mysql_cloudmanaged_databases). The **Doctors** table includes a Doctor ID, Doctor Name (first and last name), and the specialty they are in. The **patients** table includes a Patient ID, First Name, Last Name, Date of Birth, and the Primary Doctor ID. Lastly, the **laboratorytests** table includes a Test ID, Patient ID, Doctor ID, Test Name, Test Date, and Test Results.
+These tables were created from my [previous repository](https://github.com/Helzheng123/mysql_cloudmanaged_databases). The **doctors** table includes a Doctor ID, Doctor Name (first and last name), and the specialty they are in. The **patients** table includes a Patient ID, First Name, Last Name, Date of Birth, and the Primary Doctor ID. Lastly, the **laboratorytests** table includes a Test ID, Patient ID, Doctor ID, Test Name, Test Date, and Test Results.
 
  - To insert fake data, type in the [following](https://github.com/Helzheng123/flask_4_databases_mysql_vm/blob/main/MYSQL/populate.sql):
 ```
